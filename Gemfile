@@ -7,6 +7,7 @@ ruby '2.2.1'
 #ruby-gemset=smo_prod_rails_42
 
 gem "middleman", "~>3.4.1"
+gem "middleman-blog", "~> 3"
 
 # Live-reloading plugin
 gem "middleman-livereload", "~> 3.3.0"
