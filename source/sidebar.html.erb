@@ -1,0 +1,13 @@
+<aside>
+  <%= link_to 'Etusivu', '/' %>
+  <h2>Sisältö</h2>
+  <ul>
+    <% page_articles.each do |article| %>
+    <li>
+      <% nimi = "#{article.data.etunimet} #{article.data.sukunimi}" %>
+      <%= link_to nimi, article %>
+
+    </li>
+    <% end %>
+  </ul>
+</aside>
