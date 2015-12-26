@@ -9,6 +9,7 @@ page '/*.xml', layout: false
 page '/*.json', layout: false
 page '/*.txt', layout: false
 page "/suku/*", :layout => "person"
+page "/suku/tarinat/*", :layout => "layout"
 
 # With alternative layout
 # page "/path/to/file.html", layout: :otherlayout

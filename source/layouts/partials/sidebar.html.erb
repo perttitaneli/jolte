@@ -1,18 +1,30 @@
 <aside>
-  <%= link_to 'Etusivu', '/' %>
-  <h2>Henkilöt</h2>
+  <%= link_to 'Etusivu', 'http://perttitaneli.github.io/jolte/' %>
+  <% if current_page.data.henkilöt.present? %>
+      <h4>Tarinassa esiintyvät</h4>
+      <ul>
+        <% current_page.data.henkilöt.split(',').each do |person| %>
+            <li>
+              <%= nimilinkki person %>
+            </li>
+        <% end %>
+      </ul>
+  <% end %>
+
+
+  <h4>Suku</h4>
   <ul>
     <% sitemap.resources.each_with_index do |article, i| %>
         <% if article.data.sukunimi.present? %>
             <li>
-              <% nimi = "#{article.data.etunimet} #{article.data.sukunimi}" %>
+              <% nimi = "#{article.data.sukunimi}, #{article.data.etunimet}" %>
               <%= link_to nimi, article %>
 
             </li>
         <% end %>
     <% end %>
   </ul>
-  <h2>Tarinat</h2>
+  <h4>Tarinat</h4>
   <ul>
     <% sitemap.resources.each_with_index do |article, i| %>
         <% if article.path.include?('tarinat') %>

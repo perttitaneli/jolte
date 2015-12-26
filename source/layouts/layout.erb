@@ -9,7 +9,6 @@
   <!-- Use title if it's in the page YAML frontmatter -->
   <title>Jolte Sukukirjasto</title>
 
-  <%= stylesheet_link_tag "_normalize"%>
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag "site" %>
 
@@ -26,7 +25,7 @@
         <%= yield %>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-        <%= partial 'sidebar' %>
+        <%= partial 'layouts/partials/sidebar' %>
       </div>
     </div>
 
