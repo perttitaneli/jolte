@@ -29,6 +29,9 @@ end
 # Helpers
 ###
 
+require "custom_helpers"
+helpers CustomHelpers
+
 # Methods defined in the helpers block are available in templates
 # helpers do
 #   def some_helper
