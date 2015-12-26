@@ -6,9 +6,11 @@
 
 # Ignore bundler config
 /.bundle
+.idea/workspace.xml
 
 # Ignore the build directory
 /build
+/bin
 
 # Ignore cache
 /.sass-cache
