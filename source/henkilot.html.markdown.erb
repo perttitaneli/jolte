@@ -1,0 +1,15 @@
+<h1>Henkilöt</h1>
+<ul>
+  <% sitemap.resources.each do |article| %>
+      <% if article.data.sukunimi.present? %>
+          <li>
+            <%= person_link article %>
+          </li>
+      <% end %>
+  <% end %>
+</ul>
+
+
+
+
+

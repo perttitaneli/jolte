@@ -6,11 +6,16 @@
 }
 
 #portrait {
-  width: 150px;
+  width: 100px;
   border-radius: 5px;
   border-color: #7f8177;
 }
 
 ul {
   list-style-type: none;
+}
+
+.fa-portrait {
+  font: normal normal normal 100px FontAwesome;
+  color: #7f8177;
 }

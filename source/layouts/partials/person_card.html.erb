@@ -1,25 +1,31 @@
-<h1><%= current_page.data.etunimet %> <%= current_page.data.sukunimi %></h1>
-<% if current_page.data.try(:syntyi) %>
-    <%= current_page.data.try(:syntyi) %> - <%= current_page.data.try(:kuoli) %>
-<% end %>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 
-<h4>Vanhemmat</h4>
-<ul>
-  <% vanhemmat(current_page).each do |vanhempi| %>
-      <li>
-        <%= nimilinkki vanhempi %>
-      </li>
-  <% end %>
-</ul>
-
-<% puoliso = current_page.data.try(:puoliso) %>
-<% if puoliso.present? %>
-    <h4>Puoliso</h4>
+    <h1><%= current_page.data.etunimet %> <%= current_page.data.sukunimi %></h1>
+    <% if current_page.data.try(:syntyi) %>
+        <%= current_page.data.try(:syntyi) %> <%= current_page.data.try(:syntymäpaikka) %> - <%= current_page.data.try(:kuoli) %>
+    <% end %>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <h4>Vanhemmat</h4>
     <ul>
-      <li>
-        <%= nimilinkki puoliso %>
-      </li>
+      <% vanhemmat(current_page).each do |vanhempi| %>
+          <li>
+            <%= nimilinkki vanhempi %>
+          </li>
+      <% end %>
     </ul>
-<% end %>
 
-<%= partial 'layouts/partials/lapset' %>
+    <% puoliso = current_page.data.try(:puoliso) %>
+    <% if puoliso.present? %>
+        <h4>Puoliso</h4>
+        <ul>
+          <li>
+            <%= nimilinkki puoliso %>
+          </li>
+        </ul>
+    <% end %>
+
+    <%= partial 'layouts/partials/lapset' %>
+  </div>
+</div>

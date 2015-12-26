@@ -67,6 +67,17 @@ module CustomHelpers
     result
   end
 
+  def person_link(article)
+    official_name = sprintf "%s, %s", article.data.sukunimi, article.data.etunimet
+    link = link_to official_name, article
+    if article.data.syntyi
+      text = sprintf "%s s. %s", link, article.data.syntyi
+    else
+      text = link
+    end
+    text
+  end
+
   def nimilinkki(name_or_id, text=nil)
     result = text || name_or_id
 
@@ -81,6 +92,7 @@ module CustomHelpers
       if text.nil?
         text = "#{article.data.etunimet} #{article.data.sukunimi}"
       end
+
       result = link_to text, article
     end
 
@@ -124,15 +136,15 @@ module CustomHelpers
 
   def find_person_by_name(name)
     result = nil
+    if name
+      sitemap.resources.each do |article|
 
-    sitemap.resources.each do |article|
-
-      if does_article_belong_to?(name, article)
-        result = article
-        break
+        if does_article_belong_to?(name, article)
+          result = article
+          break
+        end
       end
     end
-
     result
   end
 

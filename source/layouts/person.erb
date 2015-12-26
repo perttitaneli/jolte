@@ -1,21 +1,6 @@
 <!doctype html>
 <html>
-<head>
-  <meta charset="utf-8">
-
-  <!-- Always force latest IE rendering engine or request Chrome Frame -->
-  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-
-  <!-- Use title if it's in the page YAML frontmatter -->
-  <title>Jolte Sukukirjasto</title>
-
-  <%= stylesheet_link_tag "bootstrap.min" %>
-  <%= stylesheet_link_tag "site" %>
-
-  <%= javascript_include_tag "jquery-1.11.3.min" %>
-  <%= javascript_include_tag "all" %>
-  <%= javascript_include_tag "bootstrap.min" %>
-</head>
+<%= partial 'layouts/partials/head' %>
 
 <body class="<%= page_classes %>">
 
@@ -24,31 +9,36 @@
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
       <div class="well">
 
-        <% if current_page.data.kuva %>
-            <div class="row">
-              <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3">
+            <% if current_page.data.kuva %>
                 <%= image_tag current_page.data.kuva, id: 'portrait' %>
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                <%= partial 'layouts/partials/person_card' %>
-              </div>
-            </div>
-        <% else %>
+            <% else %>
+
+                <i class="fa-portrait">&#xf007;</i>
+            <% end %>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-10 col-lg-9">
             <%= partial 'layouts/partials/person_card' %>
-        <% end %>
+          </div>
+        </div>
 
       </div>
       <div class="well">
         <%= yield %>
 
-        <h3>Esiintyy tarinoissa</h3>
-        <ul>
-          <% tarinat(current_page).each do |article| %>
-              <li>
-                <%= link_to article.data.linkki, article %>
-              </li>
-          <% end %>
-        </ul>
+        <% stories = tarinat(current_page) %>
+        <% if stories.count > 0 %>
+            <h3>Esiintyy tarinoissa</h3>
+            <ul>
+              <% tarinat(current_page).each do |article| %>
+                  <li>
+                    <%= link_to article.data.linkki, article %>
+                  </li>
+              <% end %>
+            </ul>
+        <% end %>
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
