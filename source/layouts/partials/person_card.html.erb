@@ -1,0 +1,25 @@
+<h1><%= current_page.data.etunimet %> <%= current_page.data.sukunimi %></h1>
+<% if current_page.data.try(:syntyi) %>
+    <%= current_page.data.try(:syntyi) %> - <%= current_page.data.try(:kuoli) %>
+<% end %>
+
+<h4>Vanhemmat</h4>
+<ul>
+  <% vanhemmat(current_page).each do |vanhempi| %>
+      <li>
+        <%= nimilinkki vanhempi %>
+      </li>
+  <% end %>
+</ul>
+
+<% puoliso = current_page.data.try(:puoliso) %>
+<% if puoliso.present? %>
+    <h4>Puoliso</h4>
+    <ul>
+      <li>
+        <%= nimilinkki puoliso %>
+      </li>
+    </ul>
+<% end %>
+
+<%= partial 'layouts/partials/lapset' %>

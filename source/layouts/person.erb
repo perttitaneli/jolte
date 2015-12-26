@@ -22,43 +22,34 @@
 <div class='container' id="main" role="main">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-      <h1><%= current_page.data.etunimet %> <%= current_page.data.sukunimi %></h1>
-      <% if current_page.data.kuva %>
-          <%= image_tag current_page.data.kuva, width: '150px' %>
-      <% end %>
-      s. <%= current_page.data.try(:syntyi) %>
+      <div class="well">
 
-      <h3>Vanhemmat</h3>
-      <ul>
-        <% vanhemmat(current_page).each do |vanhempi| %>
-            <li>
-              <%= nimilinkki vanhempi %>
-            </li>
+        <% if current_page.data.kuva %>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <%= image_tag current_page.data.kuva, id: 'portrait' %>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <%= partial 'layouts/partials/person_card' %>
+              </div>
+            </div>
+        <% else %>
+            <%= partial 'layouts/partials/person_card' %>
         <% end %>
-      </ul>
 
-      <% puoliso = current_page.data.try(:puoliso) %>
-      <% if puoliso.present? %>
-          <h3>Puoliso</h3>
-          <ul>
-            <li>
-              <%= nimilinkki puoliso %>
-            </li>
-          </ul>
-      <% end %>
+      </div>
+      <div class="well">
+        <%= yield %>
 
-      <%= partial 'layouts/partials/lapset' %>
-
-      <h2>Esiintyy tarinoissa</h2>
-      <ul>
-        <% tarinat(current_page).each do |article| %>
-            <li>
-              <%= link_to article.data.linkki, article %>
-            </li>
-        <% end %>
-      </ul>
-
-      <%= yield %>
+        <h3>Esiintyy tarinoissa</h3>
+        <ul>
+          <% tarinat(current_page).each do |article| %>
+              <li>
+                <%= link_to article.data.linkki, article %>
+              </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <%= partial 'layouts/partials/sidebar' %>

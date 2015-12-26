@@ -1,2 +1,16 @@
 @charset "utf-8";
 @import "normalize";
+
+.container {
+  margin-top: 80px;
+}
+
+#portrait {
+  width: 150px;
+  border-radius: 5px;
+  border-color: #7f8177;
+}
+
+ul {
+  list-style-type: none;
+}
