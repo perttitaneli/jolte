@@ -1,0 +1,10 @@
+
+git checkout master
+git fetch --unshallow || true
+bundle exec middleman build
+cp -r build/* .
+git checkout -b gh-pages
+git checkout .gitignore
+git add .
+git commit -m 'automatic middleman update --skip-ci'
+git push ${REMOTE_REPOSITORY} ${CI_COMMIT_ID}:${REMOTE_BRANCH} --force
