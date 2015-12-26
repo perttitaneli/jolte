@@ -2,30 +2,8 @@
 title: Jolte
 ---
 
-<h2>Viimeisimmät lisäykset </h2>
 
-<% if paginate && num_pages > 1 %>
-<% if prev_page %>
-<div class='newer_posts_div'>
-  <%= link_to "Newer Posts", prev_page, class: 'button btn btn-primary' %>
-</div>
-<% end %>
-<% end %>
 
-<% page_articles.each_with_index do |article, i| %>
 
-<% published_at = article.date.strftime('%d.%m.%Y').upcase %>
-<%= published_at %>
-<% nimi = "#{article.data.etunimet} #{article.data.sukunimi}" %>
-<%= link_to nimi, article %>
 
-<hr>
-<% end %>
 
-<% if paginate %>
-<% if next_page %>
-<div class='older_posts_div'>
-  <%= link_to "Older Posts", next_page, class: 'button btn btn-primary' %>
-</div>
-<% end %>
-<% end %>

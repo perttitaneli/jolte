@@ -9,9 +9,9 @@
   <!-- Use title if it's in the page YAML frontmatter -->
   <title>Jolte Sukukirjasto</title>
 
-  <%= stylesheet_link_tag "normalize"%>
+  <%= stylesheet_link_tag "_normalize"%>
   <%= stylesheet_link_tag "bootstrap.min" %>
-  <%= stylesheet_link_tag "all" %>
+  <%= stylesheet_link_tag "site" %>
 
   <%= javascript_include_tag  "jquery-1.11.3.min" %>
   <%= javascript_include_tag  "all" %>
@@ -21,6 +21,7 @@
 <body class="<%= page_classes %>">
 
   <div class='container' id="main" role="main">
+
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
         <%= yield %>
