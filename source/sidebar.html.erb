@@ -1,13 +1,23 @@
 <aside>
   <%= link_to 'Etusivu', '/' %>
-  <h2>Sisältö</h2>
+  <h2>Henkilöt</h2>
   <ul>
     <% sitemap.resources.each_with_index do |article, i| %>
         <% if article.data.sukunimi.present? %>
             <li>
               <% nimi = "#{article.data.etunimet} #{article.data.sukunimi}" %>
-              <%= link_to nimi, article.path %>
+              <%= link_to nimi, "/#{article.path}" %>
 
+            </li>
+        <% end %>
+    <% end %>
+  </ul>
+  <h2>Tarinat</h2>
+  <ul>
+    <% sitemap.resources.each_with_index do |article, i| %>
+        <% if article.path.include?('tarinat') %>
+            <li>
+              <%= link_to article.data.linkki, "/#{article.path}" %>
             </li>
         <% end %>
     <% end %>
