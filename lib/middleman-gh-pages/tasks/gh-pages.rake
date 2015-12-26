@@ -77,6 +77,6 @@ task :publish => [:not_dirty, :prepare_git_remote_in_build_dir, :sync, :build] d
     else
       sh "git commit -m \"#{message}\""
     end
-    # sh "git push #{remote_name} gh-pages" Moving this to codeship
+    sh "git push #{remote_name} gh-pages" # Moving this to codeship
   end
 end
