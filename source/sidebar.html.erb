@@ -6,7 +6,7 @@
         <% if article.data.sukunimi.present? %>
             <li>
               <% nimi = "#{article.data.etunimet} #{article.data.sukunimi}" %>
-              <%= link_to nimi, "/#{article.path}" %>
+              <%= link_to nimi, article %>
 
             </li>
         <% end %>
@@ -17,7 +17,7 @@
     <% sitemap.resources.each_with_index do |article, i| %>
         <% if article.path.include?('tarinat') %>
             <li>
-              <%= link_to article.data.linkki, "/#{article.path}" %>
+              <%= link_to article.data.linkki, article %>
             </li>
         <% end %>
     <% end %>

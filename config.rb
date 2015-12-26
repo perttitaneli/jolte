@@ -45,5 +45,4 @@ configure :build do
   # activate :minify_javascript
 end
 
-
 activate :directory_indexes
