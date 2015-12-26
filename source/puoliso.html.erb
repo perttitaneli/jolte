@@ -1,0 +1,17 @@
+<% puoliso = current_page.data.try(:puoliso) %>
+<% if puoliso.present? %>
+    <h3>Puoliso</h3>
+    <% found = false %>
+    <% sitemap.resources.each_with_index do |article, i| %>
+        <% if article.data.sukunimi.present? && puoliso.include?(article.data.sukunimi) %>
+            <% nimi = "#{article.data.etunimet} #{article.data.sukunimi}" %>
+            <%= link_to nimi, article %>
+            <% found = true %>
+            <% break %>
+        <% end %>
+    <% end %>
+
+    <% if !found %>
+        <%= puoliso %>
+    <% end %>
+<% end %>

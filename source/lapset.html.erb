@@ -1,0 +1,27 @@
+<% lapset = current_page.data.try(:lapset) %>
+
+<% if lapset.present? %>
+    <% lapsilista = lapset.split(',') %>
+    <h3>Lapset</h3>
+    <ul>
+      <% lapsilista.each do |lapsi| %>
+          <% found = false %>
+          <% sitemap.resources.each_with_index do |article, i| %>
+              <% if article.data.sukunimi.present? && lapsi.include?(article.data.sukunimi) %>
+                  <% nimi = "#{article.data.etunimet} #{article.data.sukunimi}" %>
+                  <li>
+                    <%= link_to nimi, article %>
+                  </li>
+                  <% found = true %>
+                  <% break %>
+              <% end %>
+          <% end %>
+
+          <% if !found %>
+              <li>
+                <%= lapsi %>
+              </li>
+          <% end %>
+      <% end %>
+    </ul>
+<% end %>

@@ -9,33 +9,32 @@
   <!-- Use title if it's in the page YAML frontmatter -->
   <title>Jolte Sukukirjasto</title>
 
-  <%= stylesheet_link_tag "normalize"%>
+  <%= stylesheet_link_tag "normalize" %>
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag "all" %>
 
-  <%= javascript_include_tag  "jquery-1.11.3.min" %>
-  <%= javascript_include_tag  "all" %>
-  <%= javascript_include_tag  "bootstrap.min" %>
+  <%= javascript_include_tag "jquery-1.11.3.min" %>
+  <%= javascript_include_tag "all" %>
+  <%= javascript_include_tag "bootstrap.min" %>
 </head>
 
 <body class="<%= page_classes %>">
 
-  <div class='container' id="main" role="main">
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-        <h1><%= current_page.data.etunimet %> <%= current_page.data.sukunimi %></h1>
+<div class='container' id="main" role="main">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+      <h1><%= current_page.data.etunimet %> <%= current_page.data.sukunimi %></h1>
 
+      <%= partial 'puoliso' %>
+      <%= partial 'lapset' %>
 
-        <h3>Puoliso</h3>
-        <%= current_page.data.puoliso %>
-
-        <%= yield %>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-        <%= partial 'sidebar' %>
-      </div>
+      <%= yield %>
     </div>
-
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+      <%= partial 'sidebar' %>
+    </div>
   </div>
+
+</div>
 </body>
 </html>
