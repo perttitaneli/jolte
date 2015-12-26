@@ -11,8 +11,6 @@ page '/*.txt', layout: false
 page "/suku/*", :layout => "person"
 page "/index.html", :layout => "frontpage"
 
-set :relative_links, true
-
 # With alternative layout
 # page "/path/to/file.html", layout: :otherlayout
 
