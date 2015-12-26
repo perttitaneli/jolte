@@ -22,6 +22,7 @@ page "/suku/*", :layout => "person"
 # Reload the browser automatically whenever files change
 configure :development do
   activate :livereload
+
 end
 
 ###
@@ -43,5 +44,6 @@ configure :build do
   # Minify Javascript on build
   # activate :minify_javascript
 end
+
 
 activate :directory_indexes

@@ -10,7 +10,6 @@
 .idea/*
 
 # Ignore the build directory
-/build
 /bin
 
 # Ignore cache
