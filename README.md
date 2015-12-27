@@ -1,66 +1,5 @@
 # Jolte
-Julkaisuohjelma sukututkijoille.
-
-## [Käyttö](https://github.com/perttitaneli/jolte/tree/master#käyttö-1)
-
-1. [Sukutaulujen lisäys](https://github.com/perttitaneli/jolte/tree/master#sukutaulujen-lisäys)
-
-
-## [Asennus](https://github.com/perttitaneli/jolte/tree/master#asennus-1)
-
-## [Lisenssi](https://github.com/perttitaneli/jolte/tree/master#lisenssi-1)
-
-## Käyttö
-
-Katsele julkaistuja tietoja: [Jolte](http://perttitaneli.github.io/jolte/)
-
-### Sukutaulujen lisäys
-
-Sukutaulut lisätään [`suku`-hakemistoon](https://github.com/perttitaneli/jolte/tree/master/source/suku). 
-Taulut tallennetaan tekstitiedostoina joita voit muokata haluamallasi ohjelmalla. 
-Tiedostojen pääte on `.html.markdown.erb` ja nimi vapaasti valittavissasi.   
-
-```markdown
----
-taulu: A304
-sukunimet: Viljakkala
----
-```
-
-### Henkilöiden linkitys
-
-Kun lisäät puolisot ja lapset sukutauluun, jolte linkittää heidän tietonsa automaattisesti. 
-
-Linkitettävät henkilöt lisätään `etunimet sukunimi taulu` muodossa. Taulua ja etunimiä ei ole pakko syöttää. 
-Ohjelma ei tarkista etunimien järjestystä. Jos suvussa on tapana kierrättää etunimiä, suosittelemme taulunumeroiden käyttöä.
-
-```markdown
----
-lapset: Johanna Kulmala A399, Viljami Kulmala
----
-```
-
-Näin lisäät linkin henkilötauluun:
-
-```erb
-<%= nimilinkki 'A304' %>
-```
-
-Voit määrittää linkissä käytetyn tekstin:
-
-```erb
-<%= nimilinkki 'A304', 'Marian taulu' %>
-```
-
-Myös tässä nimitunnistus toimii ja voit jättää taulunumeron pois:
-
-```erb
-<%= nimilinkki 'Maria Johanssdr' %>
-```
-
-### Tarinoiden lisäys
-
-Tarinat lisätään [`tarinat`-hakemistoon](https://github.com/perttitaneli/jolte/tree/master/source/tarinat). 
+Julkaisuohjelma sukututkijoille. Katsele julkaistuja tietoja: [Jolte](http://perttitaneli.github.io/jolte/)
 
 
 ## Lisenssi
@@ -69,31 +8,36 @@ Jolten lähdekoodi on vapaasti kopioitavissa ja muokattavissa omaan käyttöön.
 
 Kaikkien omaan sukututkimukseeni liittyvien hakemistojen (suku, images, tarinat, ...) sisältö on normaalilla tekijänoikeudella suojattu eikä kuulu avoimen lähdekoodin lisenssin piiriin. Mikäli otat Jolten omaan käyttöösi, poista näiden hakemistojen sisällöt ennen julkaisua.
 
+Ohjeiden sisällysluettelo
+## 1. Yleistä Jolten käytöstä
+## 2. Jolten peruskäyttö
+### 2.1 Muiden tekemien muutokset hakeminen - `hae.bat`
+### 2.2 Muuttuneiden tiedostojen tarkistaminen - `muutokset.bat`
+### 2.3 Tietojen julkaiseminen - `julkaise.bat "OMA KOMMENTTI"`
+## 3. Jolten tiedostojen hallinta
+### 3.1 [Henkilöiden lisäys](https://github.com/perttitaneli/jolte/tree/master#henkilöiden-lisäys)
+### 3.2 Henkilöiden linkitys
+### 3.3 Tarinoiden lisäys
+## 4. Käsitteitä
+## 5. [Asennus](https://github.com/perttitaneli/jolte/tree/master#asennus-1)
 
-## Asennus
+-----------------------------------------
 
-Windows-ympäristössä
-
-1. Asenna [Git Windows client](https://git-scm.com/download/win)
-2. Avaa Command Prompt (suomenkielisessä versiossa Komentorivi)
-3. Siirry hakemistoon, mihin haluat ladata Jolten, esim. `c:\users\nn`
-4. Kloonaa Jolte versionhallinnasta omalle koneelle `git clone https://github.com/perttitaneli/jolte.git`
-
-
-## Jolten tiedostoformaatit
+## Yleistä Jolten käytöstä
 
 Nettisivulle julkaistavat tiedot syötetään teksti- ja kuvatiedostoina, jotka säilötään versionhallintaan. Sieltä ne julkaistaan nettiin automaattisesti.
 
 Tekstitiedostoille on käytettävä Jolten oma formaattia ja niiden tiedostopääte on `.html.markdown.erb`.
 
-`source/suku` sisältää kaikkien henkilöiden taulut perustietoineen. Esimerkki tiedostosta täällä.
+`source/suku` sisältää kaikkien henkilöiden taulut perustietoineen.
 `source/tarinat` sisältää yleisiä tarinoita henkilöiden elämästä
-`source/sukupuut` sisältää valittujen henkilöiden sukupuut
 
-Kuvatiedostot talletetaan [`images`-hakemistoon](https://github.com/perttitaneli/jolte/tree/master/source/images). Ne voivat olla mitä tahansa yleisiä kuvaformaatteja kuten .jpg tai .png. Koko kannattaa olla normaalia pienempi, että nettisivut latautuvat nopeasti hitaammallakin yhteydellä.
+Tiedostojen rakenteesta lisää alempana.
+
+Kuvatiedostot talletetaan [`images`-hakemistoon](https://github.com/perttitaneli/jolte/tree/master/source/images). Jolte tukee yleisimpiä  kuvaformaatteja kuten .jpg tai .png. Kuvien koko kannattaa olla normaalia pienempi, että nettisivut latautuvat nopeasti hitaammallakin yhteydellä.
 
 
-## Jolten käyttö
+## Jolten peruskäyttö
 
 Jolten mukana tulee 3 komentojonotiedostoa käytön helpottamiseksi Windows-ympäristössä. Voit luoda niille kuvakkeet Työpöydälle tai ajaa Komentoriviltä Jolten hakemistosta.
 
@@ -126,14 +70,11 @@ Kun kaikki muutokset on tehty, suorita julkaisu:
 2. Syötä git käyttäjänimesi ja salasanasi kun niitä kysytään
 
 
+## Jolten tiedostojen hallinta
 
+### Henkilöiden lisäys
 
-
-
-
-### Tiedostoformaattiesimerkit
-
-## Taulu
+Taulu-tyyppisen tiedoston esimerkkirakenne
 
 ```markdown
 ---
@@ -141,8 +82,52 @@ taulu: A304
 sukunimet: Viljakkala
 ---
 
+### Henkilöiden linkitys
+
+Kun lisäät puolisot ja lapset sukutauluun, Jolte linkittää heidät toisiinsa automaattisesti.
+
+Linkitettävät henkilöt lisätään `etunimet sukunimi taulu` muodossa. Taulua ja etunimiä ei ole pakko syöttää.
+Ohjelma ei tarkista etunimien järjestystä. Jos suvussa on tapana kierrättää etunimiä, suosittelemme taulunumeroiden käyttöä.
+
+```markdown
+---
+lapset: Johanna Kulmala A399, Viljami Kulmala
+---
+```
+
+Näin lisäät linkin henkilötauluun:
+
+```erb
+<%= nimilinkki 'A304' %>
+```
+
+Voit määrittää linkissä käytetyn tekstin:
+
+```erb
+<%= nimilinkki 'A304', 'Marian taulu' %>
+```
+
+Myös tässä nimitunnistus toimii ja voit jättää taulunumeron pois:
+
+```erb
+<%= nimilinkki 'Maria Johanssdr' %>
+```
+
+### Tarinoiden lisäys
+
+Tarinat lisätään [`tarinat`-hakemistoon](https://github.com/perttitaneli/jolte/tree/master/source/tarinat).
 
 
 ## Käsitteitä
 
 versionhallinta GitHub
+
+
+## Asennus
+
+Windows-ympäristössä
+
+1. Asenna [Git Windows client](https://git-scm.com/download/win)
+2. Avaa Command Prompt (suomenkielisessä versiossa Komentorivi)
+3. Siirry hakemistoon, mihin haluat ladata Jolten, esim. `c:\users\nn`
+4. Kloonaa Jolte versionhallinnasta omalle koneelle `git clone https://github.com/perttitaneli/jolte.git`
