@@ -1,7 +1,7 @@
 <h1>Henkilöt</h1>
 <ul>
   <% sitemap.resources.each do |article| %>
-      <% if article.data.sukunimi.present? %>
+      <% if article.path.include?('suku/') %>
           <li>
             <%= person_link article %>
           </li>

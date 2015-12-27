@@ -1,26 +1,45 @@
 module CustomHelpers
 
+  def sukutaulu?(article)
+    article.path.include?('suku/')
+  end
+
   def esivanhemmat(taulu)
-    owner = puulinkki taulu
-    search_name = search_name_from_table taulu
-    parent_data = []
-    parents = parents search_name
-    parents.each do |parent|
-      parent_data << esivanhemmat(parent)
-    end
-    if parent_data.length > 1
-      result = sprintf("<table><tr><td rowspan='2'>%s</td><td>%s</td></tr><tr><td>%s</td></tr></table>",
-                       owner, parent_data[0], parent_data[1])
-    else
-      result = sprintf("<table><tr><td>%s</td><td>%s</td></tr></table>",
-                       owner, parent_data[0])
+    result = nil
+    if taulu
+      article = find_person_by_id taulu
+      unless article
+        article = find_person_by_name taulu
+      end
+
+      if article
+        name = search_name article
+
+        pa = father name
+        ma = mother name
+
+        mother_data = esivanhemmat(ma)
+        father_data = esivanhemmat(pa)
+
+        data = ['<table><tr>']
+        owner = tree_link_from_article(article)
+        if is_a_woman? article
+          data << sprintf("<td rowspan='2' id='mom'>%s</td>", owner)
+        else
+          data << sprintf("<td rowspan='2'>%s</td>", owner)
+        end
+        data << sprintf("<td>%s</td></tr><tr><td id='mom'>%s</td>",
+                        father_data, mother_data)
+        data << '</tr></table>'
+        result = data.join('')
+      end
     end
     result
   end
 
   def jalkelaiset(taulu)
     owner = puulinkki taulu
-    search_name = search_name_from_table taulu
+    search_name = full_search_name taulu
     data = []
     article = find_article_by_name search_name
     if article
@@ -39,22 +58,23 @@ module CustomHelpers
 
       if data.length > 0
         result = sprintf("<table><tr>%s<td rowspan='%s'>%s</td></tr>%s</table>",
-                         data[0],data.length, owner, data.drop(1).join(''))
+                         data[0], data.length, owner, data.drop(1).join(''))
       end
     end
     result
   end
 
-  def search_name_from_table(table_id)
+  def full_search_name(table_id)
     result = table_id
+    if table_id
+      name_without_id = drop_table_id table_id
+      if name_without_id.length == 0
 
-    name_without_id = drop_table_id table_id
-    if name_without_id.length == 0
-
-      sitemap.resources.each do |article|
-        if article.data.taulu == table_id
-          result = search_name article
-          break
+        sitemap.resources.each do |article|
+          if article.data.taulu == table_id
+            result = search_name article
+            break
+          end
         end
       end
     end
@@ -68,6 +88,55 @@ module CustomHelpers
   def vanhemmat(current_page)
     name = search_name current_page
     parents(name)
+  end
+
+  def father(search_name)
+    result = nil
+
+    sukutaulut.each do |article|
+      unless is_a_woman?(article)
+        child_list = children article
+        child_list.each do |child|
+          if is_same_person_s(search_name, child)
+            result = search_name(article)
+            break
+          end
+        end
+      end
+    end
+    result
+  end
+
+  def sukutaulut
+    taulut = []
+    sitemap.resources.each do |article|
+      if sukutaulu? article
+        taulut << article
+      end
+    end
+    taulut
+  end
+
+  def mother(search_name)
+    result = nil
+
+    sukutaulut.each do |article|
+      if is_a_woman?(article)
+        child_list = children article
+        child_list.each do |child|
+          if is_same_person_s(search_name, child)
+            result = search_name(article)
+            break
+          end
+        end
+      end
+    end
+    result
+  end
+
+  def is_a_woman?(article)
+    sukupuoli = article.data.sukupuoli
+    'n'.eql?(sukupuoli) || 'N'.eql?(sukupuoli)
   end
 
   def parents(search_name)
@@ -171,17 +240,32 @@ module CustomHelpers
 
   def puulinkki(name_or_id)
     result = name_or_id
-    if name_has_numbers?(name_or_id)
-      id = find_table(name_or_id)
-      article = find_person_by_id id
-    else
-      article = find_person_by_name name_or_id
-    end
+    article = article_by_name_or_id(name_or_id)
 
     if article
-      text = "#{article.data.etunimet} #{article.data.sukunimi}"
-      link = link_to text, article
-      result = sprintf("%s<br>%s<br>%s", article.data.taulu, link, article.data.syntyi)
+      result = tree_link_from_article(article)
+    end
+
+    result
+  end
+
+  def tree_link_from_article(article)
+    text = "#{article.data.etunimet} #{article.data.sukunimi}"
+    link = link_to text, article
+    result = sprintf("%s<br>%s<br>%s", article.data.taulu, link, article.data.syntyi)
+  end
+
+  def taululinkki(name_or_id, text=nil)
+    result = text || name_or_id
+
+    article = article_by_name_or_id(name_or_id)
+
+    if article
+      if text.nil?
+        text = sprintf("%s %s", article.data.etunimet, article.data.sukunimi)
+      end
+
+      result = sprintf "%s %s", link_to(text, article), article.data.syntyi
     end
 
     result
@@ -190,12 +274,7 @@ module CustomHelpers
   def nimilinkki(name_or_id, text=nil)
     result = text || name_or_id
 
-    if name_has_numbers?(name_or_id)
-      id = find_table(name_or_id)
-      article = find_person_by_id id
-    else
-      article = find_person_by_name name_or_id
-    end
+    article = article_by_name_or_id(name_or_id)
 
     if article
       if text.nil?
@@ -206,6 +285,16 @@ module CustomHelpers
     end
 
     result
+  end
+
+  def article_by_name_or_id(name_or_id)
+    if name_has_numbers?(name_or_id)
+      id = find_table(name_or_id)
+      article = find_person_by_id id
+    else
+      article = find_person_by_name name_or_id
+    end
+    article
   end
 
   def find_table(name_string)
@@ -225,12 +314,16 @@ module CustomHelpers
   end
 
   def drop_table_id(name)
-    name_parts = name.split(' ')
-    surname = name_parts.last
-    if name_has_numbers?(surname)
-      name_parts = name_parts.reverse.drop(1).reverse
+    result = nil
+    if name
+      name_parts = name.split(' ')
+      surname = name_parts.last
+      if name_has_numbers?(surname)
+        name_parts = name_parts.reverse.drop(1).reverse
+      end
+      result = name_parts.join(' ')
     end
-    name_parts.join(' ')
+    result
   end
 
   def names_match(search_name, name_on_file)

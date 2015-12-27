@@ -386,33 +386,35 @@ footer {
 
 /* line 40, site.css.scss */
 td {
+  color: blue;
   border: 1px solid black;
   border-collapse: collapse;
   padding: 10px; }
-  /* line 44, site.css.scss */
-  td td {
-    border: none; }
 
-/* line 49, site.css.scss */
+/* line 50, site.css.scss */
+#mom {
+  color: red; }
+
+/* line 54, site.css.scss */
 ul {
   list-style-type: none; }
 
-/* line 53, site.css.scss */
+/* line 58, site.css.scss */
 .fa-portrait {
   font: normal normal normal 100px FontAwesome;
   color: #7f8177; }
 
-/* line 58, site.css.scss */
+/* line 63, site.css.scss */
 .index .frontpage {
   text-align: center; }
-  /* line 60, site.css.scss */
+  /* line 65, site.css.scss */
   .index .frontpage h1 {
     font-size: 42px;
     margin-bottom: 40px; }
-  /* line 65, site.css.scss */
+  /* line 70, site.css.scss */
   .index .frontpage i {
     color: #658c2d; }
-  /* line 69, site.css.scss */
+  /* line 74, site.css.scss */
   .index .frontpage img {
     width: 300px;
     border-radius: 10px;

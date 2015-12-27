@@ -19,7 +19,7 @@
   <h4>Sukupuut</h4>
   <ul>
     <% sitemap.resources.each do |article| %>
-        <% if article.path.include?('puut/') %>
+        <% if sukutaulu?(article) %>
             <li>
               <%= link_to article.data.linkki, article %>
             </li>

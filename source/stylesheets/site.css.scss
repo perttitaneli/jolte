@@ -38,12 +38,17 @@ footer {
 }
 
 td {
+  color: blue;
   border: 1px solid black;
   border-collapse: collapse;
   padding: 10px;
   td {
-    border: none;
+    //border: none;
   }
+}
+
+#mom {
+  color: red;
 }
 
 ul {
