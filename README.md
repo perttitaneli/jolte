@@ -1,12 +1,12 @@
 # Jolte
 Julkaisuohjelma sukututkijoille.
 
-## [Käyttö](https://github.com/perttitaneli/jolte/tree/master#käyttö)
+## [Käyttö](https://github.com/perttitaneli/jolte/tree/master#käyttö-1)
 
 1. [Sukutaulujen lisäys](https://github.com/perttitaneli/jolte/tree/master#sukutaulujen-lisäys)
 
 
-## [Asennus](https://github.com/perttitaneli/jolte/tree/master#asennus)
+## [Asennus](https://github.com/perttitaneli/jolte/tree/master#asennus-1)
 
 ## Käyttö
 
