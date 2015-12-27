@@ -78,36 +78,38 @@ Taulu-tyyppisen tiedoston esimerkkirakenne
 ```markdown
 ---
 taulu: A304
-sukunimet: Viljakkala
----
-```
-
-### Henkilöiden linkitys
-
-Kun lisäät puolisot ja lapset sukutauluun, Jolte linkittää heidät toisiinsa automaattisesti.
-
-Linkitettävät henkilöt lisätään `etunimet sukunimi taulu` muodossa. Taulua ja etunimiä ei ole pakko syöttää.
-Ohjelma ei tarkista etunimien järjestystä. Jos suvussa on tapana kierrättää etunimiä, suosittelemme taulunumeroiden käyttöä.
-
-```markdown
----
+etunimet: Johan
+sukunimi: Viljakkala
+syntyi: 1.1.1801
+puoliso: Anna Matsdotr
 lapset: Johanna Kulmala A399, Viljami Kulmala
 ---
 ```
 
-Näin lisäät linkin henkilötauluun:
+Kun lisäät puolisot ja lapset sukutauluun, Jolte tekee linkit heidän tauluihinsa automaattisesti.
+
+Linkitettävät henkilöt (kohtiin puoliso ja lapset) lisätään `etunimet sukunimi taulu` muodossa. Taulunumeroa ja etunimiä ei ole pakko syöttää. Ohjelma ei tarkista etunimien järjestystä. Jos suvussa on tapana kierrättää etunimiä, suosittelemme taulunumeroiden käyttöä.
+
+
+### Henkilöiden linkitys käsin
+
+Linkkejä henkilöihin voi lisätä tarinoihin tai henkilötaulun perustekstiin.
+
+Alla kolme tapaa lisätä linkki.
+
+1. Linkkaus pelkällä taulunumerolla
 
 ```erb
 <%= nimilinkki 'A304' %>
 ```
 
-Voit määrittää linkissä käytetyn tekstin:
+2. Voit määrittää linkissä käytetyn tekstin:
 
 ```erb
 <%= nimilinkki 'A304', 'Marian taulu' %>
 ```
 
-Myös tässä nimitunnistus toimii ja voit jättää taulunumeron pois:
+3. Linkkaus pelkällä nimellä ilman taulunumeroa:
 
 ```erb
 <%= nimilinkki 'Maria Johanssdr' %>
