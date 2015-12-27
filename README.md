@@ -8,7 +8,9 @@ Julkaisuohjelma sukututkijoille.
 
 ## [Asennus](https://github.com/perttitaneli/jolte/tree/master#asennus)
 
-Katselu: [Jolte](http://perttitaneli.github.io/jolte/)
+## Käyttö
+
+Katsele julkaistuja tietoja: [Jolte](http://perttitaneli.github.io/jolte/)
 
 ### Sukutaulujen lisäys
 
