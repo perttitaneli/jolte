@@ -1,6 +1,32 @@
 @charset "utf-8";
 @import "normalize";
 
+html, body {
+  height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+}
+
+#main {
+  overflow:auto;
+  padding-bottom:100px; /* this needs to be bigger than footer height*/
+}
+
+footer {
+  background-color: #3e3f3a;
+  border-color: #3e3f3a;
+  color: #98978b;
+  text-align: center;
+  padding: 20px;
+
+  position: relative;
+  margin-top: -100px; /* negative value of footer height */
+  height: 100px;
+  clear:both;
+}
+
 .container {
   margin-top: 80px;
 }
@@ -39,3 +65,4 @@ ul {
     margin-bottom: 40px;
   }
 }
+
