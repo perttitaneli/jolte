@@ -8,6 +8,8 @@ Julkaisuohjelma sukututkijoille.
 
 ## [Asennus](https://github.com/perttitaneli/jolte/tree/master#asennus-1)
 
+## [Lisenssi](https://github.com/perttitaneli/jolte/tree/master#lisenssi-1)
+
 ## Käyttö
 
 Katsele julkaistuja tietoja: [Jolte](http://perttitaneli.github.io/jolte/)
@@ -61,7 +63,27 @@ Myös tässä nimitunnistus toimii ja voit jättää taulunumeron pois:
 Tarinat lisätään [`tarinat`-hakemistoon](https://github.com/perttitaneli/jolte/tree/master/source/tarinat). 
 
 
-## Asennus
+## Lisenssi
 
-Jolte on vapaasti kopioitavissa omaan käyttöösi. Suku-, images- ja tarinat-hakemistojen 
-sisältö on normaalilla tekijänoikeudella suojattu eikä kuulu vapaan ohjelmistolisenssin piiriin.
+Jolten lähdekoodi on vapaasti kopioitavissa ja muokattavissa omaan käyttöön. Jolten lähdekoodi käyttää [GPL lisenssiä](https://fi.wikipedia.org/wiki/GNU_General_Public_License).
+
+Kaikkien omaan sukututkimukseeni liittyvien hakemistojen (suku, images, tarinat, ...) sisältö on normaalilla tekijänoikeudella suojattu eikä kuulu avoimen lähdekoodin lisenssin piiriin. Mikäli otat Jolten omaan käyttöösi, poista näiden hakemistojen sisällöt ennen julkaisua.
+
+
+## Asennus Windows-ympäristöön
+
+1. Asenna [Git Windows client]https://git-scm.com/download/win
+2. Avaa Command Prompt (suomenkielisessä versiossa Komentorivi)
+3. Siirry hakemistoon, mihin haluat ladata Jolten, esim. c:\users\nn
+4. Kloonaa Jolte versionhallinnasta omalle koneelle
+```
+git clone https://github.com/perttitaneli/jolte.git
+```
+
+5. Jos tietokoneella on aina yksi ja sama käyttäjä, voit asettaa sen komennolla
+```
+git config --global user.name "TÄHÄN OMA GIT KÄYTTÄJÄTUNNUS"
+```
+
+
+
