@@ -72,7 +72,8 @@ Kaikkien omaan sukututkimukseeni liittyvien hakemistojen (suku, images, tarinat,
 
 ## Asennus
 
-Windows-ympäristössä:
+Windows-ympäristössä
+
 1. Asenna [Git Windows client](https://git-scm.com/download/win)
 2. Avaa Command Prompt (suomenkielisessä versiossa Komentorivi)
 3. Siirry hakemistoon, mihin haluat ladata Jolten, esim. `c:\users\nn`
@@ -92,9 +93,11 @@ Tekstitiedostoille on käytettävä Jolten oma formaattia ja niiden tiedostopä�
 Kuvatiedostot talletetaan [`images`-hakemistoon](https://github.com/perttitaneli/jolte/tree/master/source/images). Ne voivat olla mitä tahansa yleisiä kuvaformaatteja kuten .jpg tai .png. Koko kannattaa olla normaalia pienempi, että nettisivut latautuvat nopeasti hitaammallakin yhteydellä.
 
 
-## Jolten komentojonotiedostojen käyttö
+## Jolten käyttö
 
-### Muiden tekemien muutokset hakeminen - hae.bat
+Jolten mukana tulee 3 komentojonotiedostoa käytön helpottamiseksi Windows-ympäristössä. Voit luoda niille kuvakkeet Työpöydälle tai ajaa Komentoriviltä Jolten hakemistosta.
+
+### Muiden tekemien muutokset hakeminen - `hae.bat`
 
 Ennen kuin alat muokkaamaan tiedostoja omalla tietokoneellasi, on aina hyvä hakea viimeisimmät versiot versionhallinnasta.
 
@@ -103,14 +106,14 @@ Erityisen tärkeää tämä on jos  useampi henkilö tekee lisäyksiä ja päivi
 Muutokset haetaan suorittamalla komento `hae.bat`
 
 
-### Muuttuneiden tiedostojen tarkistaminen - muutokset.bat
+### Muuttuneiden tiedostojen tarkistaminen - `muutokset.bat`
 
 Mikäli haluat ennen julkaisua tarkistaa mitä tiedostoja olet muuttanut, voit ajaa komennon `muutokset.bat`.
 
 Komento listaa lisätyt, muokatut ja poistetut tiedostot suhteessa versionhallinnan tilanteeseen.
 
 
-### Tietojen julkaiseminen - julkaise.bat
+### Tietojen julkaiseminen - `julkaise.bat "OMA KOMMENTTI"`
 
 Kun lisäät uusia henkilöitä, luo uusi taulut-muotoinen tiedosto hakemistoon [`suku`-hakemistoon](https://github.com/perttitaneli/jolte/tree/master/source/suku). Voit käyttää pohjana mallitiedostoa `xxx.html.markdown.erb`
 
