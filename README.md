@@ -25,13 +25,41 @@ sukunimet: Viljakkala
 ---
 ```
 
-### Tarinoiden lisäys
-
 ### Henkilöiden linkitys
+
+Kun lisäät puolisot ja lapset sukutauluun, jolte linkittää heidän tietonsa automaattisesti. 
+
+Linkitettävät henkilöt lisätään `etunimet sukunimi taulu` muodossa. Taulua ja etunimiä ei ole pakko syöttää. 
+Ohjelma ei tarkista etunimien järjestystä. Jos suvussa on tapana kierrättää etunimiä, suosittelemme taulunumeroiden käyttöä.
+
+```markdown
+---
+lapset: Johanna Kulmala A399, Viljami Kulmala
+---
+```
+
+Näin lisäät linkin henkilötauluun:
 
 ```erb
 <%= nimilinkki 'A304' %>
 ```
+
+Voit määrittää linkissä käytetyn tekstin:
+
+```erb
+<%= nimilinkki 'A304', 'Marian taulu' %>
+```
+
+Myös tässä nimitunnistus toimii ja voit jättää taulunumeron pois:
+
+```erb
+<%= nimilinkki 'Maria Johanssdr' %>
+```
+
+### Tarinoiden lisäys
+
+Tarinat lisätään [`tarinat`-hakemistoon](https://github.com/perttitaneli/jolte/tree/master/source/tarinat). 
+
 
 ## Asennus
 
