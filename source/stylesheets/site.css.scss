@@ -10,8 +10,8 @@ html, body {
 }
 
 #main {
-  overflow:auto;
-  padding-bottom:100px; /* this needs to be bigger than footer height*/
+  overflow: auto;
+  padding-bottom: 100px; /* this needs to be bigger than footer height*/
 }
 
 footer {
@@ -24,7 +24,7 @@ footer {
   position: relative;
   margin-top: -100px; /* negative value of footer height */
   height: 100px;
-  clear:both;
+  clear: both;
 }
 
 .container {
@@ -35,6 +35,15 @@ footer {
   width: 100px;
   border-radius: 5px;
   border-color: #7f8177;
+}
+
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+  td {
+    border: none;
+  }
 }
 
 ul {

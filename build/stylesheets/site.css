@@ -346,3 +346,76 @@ textarea {
 table {
   border-collapse: collapse;
   border-spacing: 0; }
+
+/* line 4, site.css.scss */
+html, body {
+  height: 100%; }
+
+/* line 8, site.css.scss */
+#wrap {
+  min-height: 100%; }
+
+/* line 12, site.css.scss */
+#main {
+  overflow: auto;
+  padding-bottom: 100px;
+  /* this needs to be bigger than footer height*/ }
+
+/* line 17, site.css.scss */
+footer {
+  background-color: #3e3f3a;
+  border-color: #3e3f3a;
+  color: #98978b;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  margin-top: -100px;
+  /* negative value of footer height */
+  height: 100px;
+  clear: both; }
+
+/* line 30, site.css.scss */
+.container {
+  margin-top: 80px; }
+
+/* line 34, site.css.scss */
+#portrait {
+  width: 100px;
+  border-radius: 5px;
+  border-color: #7f8177; }
+
+/* line 40, site.css.scss */
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px; }
+  /* line 44, site.css.scss */
+  td td {
+    border: none; }
+
+/* line 49, site.css.scss */
+ul {
+  list-style-type: none; }
+
+/* line 53, site.css.scss */
+.fa-portrait {
+  font: normal normal normal 100px FontAwesome;
+  color: #7f8177; }
+
+/* line 58, site.css.scss */
+.index .frontpage {
+  text-align: center; }
+  /* line 60, site.css.scss */
+  .index .frontpage h1 {
+    font-size: 42px;
+    margin-bottom: 40px; }
+  /* line 65, site.css.scss */
+  .index .frontpage i {
+    color: #658c2d; }
+  /* line 69, site.css.scss */
+  .index .frontpage img {
+    width: 300px;
+    border-radius: 10px;
+    border-color: #7f8177;
+    border: 4px solid;
+    margin-bottom: 40px; }
