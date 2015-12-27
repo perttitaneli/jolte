@@ -10,7 +10,7 @@ module CustomHelpers
         list = lapset.split(',')
         list.each do |child|
           if is_same_person(child, current_page)
-            result << article.data.id
+            result << article.data.taulu
           end
         end
       end
@@ -152,7 +152,7 @@ module CustomHelpers
     result = nil
     sitemap.resources.each do |article|
 
-      art_id = article.data.id
+      art_id = article.data.taulu
       if art_id == id
         result = article
         break
