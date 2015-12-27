@@ -1,5 +1,5 @@
 # Jolte
-Julkaisuohjelma sukututkijoille. Katsele julkaistuja tietoja: [Jolte](http://perttitaneli.github.io/jolte/)
+Jolte on julkaisuohjelma sukututkijoille. Katsele Joltella julkaistuja tietoja: [Kalkbacken](http://perttitaneli.github.io/jolte/)
 
 
 ## Lisenssi
@@ -8,7 +8,6 @@ Jolten lähdekoodi on vapaasti kopioitavissa ja muokattavissa omaan käyttöön.
 
 Kaikkien omaan sukututkimukseeni liittyvien hakemistojen (suku, images, tarinat, ...) sisältö on normaalilla tekijänoikeudella suojattu eikä kuulu avoimen lähdekoodin lisenssin piiriin. Mikäli otat Jolten omaan käyttöösi, poista näiden hakemistojen sisällöt ennen julkaisua.
 
-Ohjeiden sisällysluettelo
 ## 1. Yleistä Jolten käytöstä
 ## 2. Jolten peruskäyttö
 ### 2.1 Muiden tekemien muutokset hakeminen - `hae.bat`
@@ -19,7 +18,7 @@ Ohjeiden sisällysluettelo
 ### 3.2 Henkilöiden linkitys
 ### 3.3 Tarinoiden lisäys
 ## 4. Käsitteitä
-## 5. [Asennus](https://github.com/perttitaneli/jolte/tree/master#asennus-1)
+## 5. [Asennus](https://github.com/perttitaneli/jolte/tree/master#asennus)
 
 -----------------------------------------
 
@@ -81,6 +80,7 @@ Taulu-tyyppisen tiedoston esimerkkirakenne
 taulu: A304
 sukunimet: Viljakkala
 ---
+```
 
 ### Henkilöiden linkitys
 
