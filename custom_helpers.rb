@@ -25,15 +25,21 @@ module CustomHelpers
     article = find_article_by_name search_name
     if article
       child_list = children article
+      index = 0
       child_list.each do |child|
-        data << jalkelaiset(child)
+        if index == 0
+          data << "<td>#{jalkelaiset(child)}</td>"
+          # data << "<td>#{child}</td>"
+        else
+          data << "<tr><td>#{jalkelaiset(child)}</td></tr>"
+          # data << "<tr><td>#{(child)}</td></tr>"
+        end
+        index += 1
       end
-      if data.length > 1
-        result = sprintf("<table><tr><td>%s</td><td rowspan='2'>%s</td></tr><tr><td>%s</td></tr></table>",
-                         data[0], owner, data[1])
-      else
-        result = sprintf("<table><tr><td>%s</td><td>%s</td></tr></table>",
-                         data[0], owner)
+
+      if data.length > 0
+        result = sprintf("<table><tr>%s<td rowspan='%s'>%s</td></tr>%s</table>",
+                         data[0],data.length, owner, data.drop(1).join(''))
       end
     end
     result
@@ -165,7 +171,6 @@ module CustomHelpers
 
   def puulinkki(name_or_id)
     result = name_or_id
-
     if name_has_numbers?(name_or_id)
       id = find_table(name_or_id)
       article = find_person_by_id id
