@@ -39,7 +39,7 @@ def make_sure_table_exists(table, filename)
       file = files.first
       check_table = file.split('/').last.split('-').first.split('.').first
       if table.eql?(check_table)
-        p "#{table} Renaming: file exists but named #{file}"
+        p "#{table} Renaming: #{file} to #{filename}"
         File.rename(file, filename)
         found = true
       end
@@ -70,7 +70,7 @@ def replace_in_frontmatter(old_value, new_value, front_array)
 end
 
 def hash_keys_by_value(hash)
-  hash.keys.sort.reverse {|a, b| hash[b] <=> hash[a]}
+  hash.keys.sort.reverse { |a, b| hash[b] <=> hash[a] }
 end
 
 def update_frontmatter(row, frontmatter_data, headers)
@@ -127,9 +127,9 @@ def get_file_key(row, headers)
   sukunimi = normalize_name raw_sukunimi
 
   if sukunimi
-    key = sprintf "%s-%s-%s", taulu, etunimet, sukunimi
+    key = sprintf "%s-%s-%s", taulu, sukunimi, etunimet
   else
-    key = sprintf "%s-%s", taulu, etunimet
+    key = sprintf "%s-%s", taulu, sukunimi, etunimet
   end
   key
 end
@@ -137,7 +137,11 @@ end
 def normalize_name(name)
   result = nil
   if name
-    result = name.downcase.tr(" ", "-")
+    # The monster line below removes any characters that cant be shown
+    # and normalizes scandinavian chars
+    result = name.gsub(/ä/, 'a').
+        gsub(/å/, 'a').gsub(/ö/,'o').gsub(/Å/,'A').gsub(/Ä/,'A').gsub(/Ö/,'O').
+        gsub(/\W\-/, "").downcase.tr(" ", "-")
   end
   result
 end
