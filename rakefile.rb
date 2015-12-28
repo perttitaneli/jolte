@@ -1,3 +1,10 @@
+task :matz do
+  require 'roo'
+  filename = './source/suku/A401.html.markdown.erb'
+  text = File.read(filename)
+  p text
+end
+
 task :add_sukutaulut do
   require 'roo'
 
