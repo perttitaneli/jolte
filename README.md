@@ -56,7 +56,7 @@ Mikäli haluat ennen julkaisua tarkistaa mitä tiedostoja olet muuttanut, voit a
 Komento listaa lisätyt, muokatut ja poistetut tiedostot suhteessa versionhallinnan tilanteeseen.
 
 
-### Tietojen julkaiseminen - `julkaise.bat "OMA KOMMENTTI"`
+### Tietojen julkaiseminen - `julkaise.bat`
 
 Kun lisäät uusia henkilöitä, luo uusi taulut-muotoinen tiedosto hakemistoon [`suku`-hakemistoon](https://github.com/perttitaneli/jolte/tree/master/source/suku). Voit käyttää pohjana mallitiedostoa `xxx.html.markdown.erb`
 
@@ -64,9 +64,7 @@ Nimi on vapaasti valittavissa, mutta siinä on hyödyllistä käyttää tiettyä
 
 Olemassa olevia tiedostoja muokataan suoraan avaamalla tiedosto tekstieditorissa ja tallettamalla muutokset.
 
-Kun kaikki muutokset on tehty, suorita julkaisu:
-1. Suorita komento `julkaise "KIRJOITA TÄHÄN YLEINEN KOMMENTTI MITÄ ON TEHTY"`
-2. Syötä git käyttäjänimesi ja salasanasi kun niitä kysytään
+Kun kaikki muutokset on tehty, suorita julkaisu ajamalla `julkaise.bat`.
 
 
 ## Jolten tiedostojen hallinta
@@ -133,3 +131,4 @@ Windows-ympäristössä
 2. Avaa Command Prompt (suomenkielisessä versiossa Komentorivi)
 3. Siirry hakemistoon, mihin haluat ladata Jolten, esim. `c:\users\nn`
 4. Kloonaa Jolte versionhallinnasta omalle koneelle `git clone https://github.com/perttitaneli/jolte.git`
+5. Aseta Git tunnukset ympäristömuuttujiin %JOLTE_USERNAME% ja %JOLTE_PASSWORD%
