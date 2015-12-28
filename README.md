@@ -56,7 +56,7 @@ Mikäli haluat ennen julkaisua tarkistaa mitä tiedostoja olet muuttanut, voit a
 Komento listaa lisätyt, muokatut ja poistetut tiedostot suhteessa versionhallinnan tilanteeseen.
 
 
-### Tietojen julkaiseminen - `julkaise.bat
+### Tietojen julkaiseminen - `julkaise.bat`
 
 Kun lisäät uusia henkilöitä, luo uusi taulut-muotoinen tiedosto hakemistoon [`suku`-hakemistoon](https://github.com/perttitaneli/jolte/tree/master/source/suku). Voit käyttää pohjana mallitiedostoa `xxx.html.markdown.erb`
 
