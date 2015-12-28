@@ -1,5 +1,32 @@
 module CustomHelpers
 
+  def git_link(article)
+    taulu = article.data.taulu
+    etunimet = normalize_name(article.data.etunimet)
+    sukunimi = normalize_name(article.data.sukunimi)
+    repo = '/github.com/perttitaneli/jolte/blob/master/source/suku/'
+    appendix = '.html.markdown.erb'
+    if sukunimi
+      key = sprintf "%s%s-%s-%s%s", repo, taulu, sukunimi, etunimet, appendix
+    else
+      key = sprintf "%s%s-%s%s", repo, taulu, sukunimi, etunimet, appendix
+    end
+
+    key
+  end
+
+  def normalize_name(name)
+    result = nil
+    if name
+      # The monster line below removes any characters that cant be shown
+      # and normalizes scandinavian chars
+      result = name.gsub(/ä/, 'a').
+          gsub(/å/, 'a').gsub(/ö/, 'o').gsub(/Å/, 'A').gsub(/Ä/, 'A').gsub(/Ö/, 'O').
+          gsub(/\W\-/, "").downcase.tr(" ", "-")
+    end
+    result
+  end
+
   def sukutaulu?(article)
     article.path.include?('suku/')
   end
