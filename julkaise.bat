@@ -1,8 +1,8 @@
 git pull
 git add .
-git commit
+git commit -m "julkaise.bat"
 
-IF "%JOLTE_USERNAME%" == "" IF "%PASSWORD%" == "" GOTO SET
+IF "%JOLTE_USERNAME%" <> "" IF "%PASSWORD%" <> "" GOTO SET
 
 :NOT_SET
 git push
