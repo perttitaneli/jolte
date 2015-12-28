@@ -1,11 +1,9 @@
 <h1>Henkilöt</h1>
 <ul>
-  <% sitemap.resources.each do |article| %>
-      <% if article.path.include?('suku/') %>
-          <li>
-            <%= article.data.taulu %> <%= person_link article %>
-          </li>
-      <% end %>
+  <% taulukoodit.each do |nimi| %>
+      <li>
+        <%= artikkelilinkki nimi %>
+      </li>
   <% end %>
 </ul>
 

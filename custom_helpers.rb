@@ -1,5 +1,15 @@
 module CustomHelpers
 
+  def taulukoodit
+    koodit = []
+    sitemap.resources.each do |article|
+      if article.path.include?('suku/') && article.data.taulu
+        koodit << article.data.taulu
+      end
+    end
+    koodit.sort
+  end
+
   def git_link(article)
     taulu = article.data.taulu
     etunimet = normalize_name(article.data.etunimet)
@@ -255,7 +265,7 @@ module CustomHelpers
   end
 
   def person_link(article)
-    official_name = sprintf "%s, %s", article.data.sukunimi, article.data.etunimet
+    official_name = sprintf "%s %s", article.data.etunimet, article.data.sukunimi
     link = link_to official_name, article
     if article.data.syntyi
       text = sprintf "%s s. %s", link, article.data.syntyi
@@ -263,6 +273,19 @@ module CustomHelpers
       text = link
     end
     text
+  end
+
+  def artikkelilinkki(name_or_id)
+    result = name_or_id
+    article = article_by_name_or_id(name_or_id)
+
+    if article
+      text = "#{article.data.etunimet} #{article.data.sukunimi}"
+      link = link_to text, article
+      result = sprintf("%s %s %s", article.data.taulu, link, article.data.syntyi)
+    end
+
+    result
   end
 
   def puulinkki(name_or_id)
