@@ -2,7 +2,7 @@ git pull
 git add .
 git commit -m "julkaise.bat"
 
-IF "%JOLTE_USERNAME%" <> "" IF "%PASSWORD%" <> "" GOTO SET
+IF EXISTS "%JOLTE_USERNAME%" IF EXISTS "%PASSWORD%" "" GOTO SET
 
 :NOT_SET
 git push
