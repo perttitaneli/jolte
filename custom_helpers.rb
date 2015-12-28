@@ -4,7 +4,7 @@ module CustomHelpers
     taulu = article.data.taulu
     etunimet = normalize_name(article.data.etunimet)
     sukunimi = normalize_name(article.data.sukunimi)
-    repo = '/github.com/perttitaneli/jolte/blob/master/source/suku/'
+    repo = 'http://github.com/perttitaneli/jolte/blob/master/source/suku/'
     appendix = '.html.markdown.erb'
     if sukunimi
       key = sprintf "%s%s-%s-%s%s", repo, taulu, sukunimi, etunimet, appendix
