@@ -13,3 +13,5 @@ git push --repo https://%JOLTE_USERNAME%:%JOLTE_PASSWORD%@github.com/perttitanel
 @GOTO END
 
 :END
+
+@pause
