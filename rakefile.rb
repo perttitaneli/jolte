@@ -1,10 +1,3 @@
-task :matz do
-  require 'roo'
-  filename = './source/suku/A401.html.markdown.erb'
-  text = File.read(filename)
-  p text
-end
-
 task :add_sukutaulut do
   require 'roo'
 
@@ -88,6 +81,11 @@ def update_frontmatter(row, frontmatter_data, headers)
     matter_keys = hash_keys_by_value headers
     matter_keys.each do |matter_key|
       value = row[headers[matter_key]]
+
+      if value.class == Date
+        value = value.strftime("%d.%m.%Y")
+      end
+
       matter_row = sprintf "%s: %s", matter_key.downcase, value
       unless front_array.include?(matter_row)
         value = current_frontmatter_value_for(matter_key, front_array)
