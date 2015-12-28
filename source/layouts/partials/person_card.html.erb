@@ -3,7 +3,7 @@
     Taulu <%= current_page.data.try(:taulu) %>
     <h1><%= current_page.data.etunimet %> <%= current_page.data.sukunimi %></h1>
     <% if current_page.data.try(:syntyi) %>
-        <%= current_page.data.try(:syntyi) %> <%= current_page.data.try(:syntymäpaikka) %>
+        <%= current_page.data.try(:syntyi) %> <%= current_page.data.try(:syntypaikka) %>
         - <%= current_page.data.try(:kuoli) %>
     <% end %>
   </div>
@@ -18,17 +18,5 @@
         <%= taululinkki mother(search_name) %>
       </li>
     </ul>
-
-    <% puoliso = current_page.data.try(:puoliso) %>
-    <% if puoliso.present? %>
-        <h4>Puoliso</h4>
-        <ul>
-          <li>
-            <%= taululinkki puoliso %>
-          </li>
-        </ul>
-    <% end %>
-
-    <%= partial 'layouts/partials/lapset' %>
   </div>
 </div>
