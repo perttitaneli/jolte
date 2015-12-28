@@ -1,4 +1,4 @@
-# Jolte
+﻿# Jolte
 Jolte on julkaisuohjelma sukututkijoille. Katsele Joltella julkaistuja tietoja: [Kalkbacken](http://perttitaneli.github.io/jolte/)
 
 
@@ -128,7 +128,7 @@ versionhallinta GitHub
 Windows-ympäristössä
 
 1. Asenna [Git Windows client](https://git-scm.com/download/win)
-2. Avaa Command Prompt (suomenkielisessä versiossa Komentorivi)
+2. Avaa Command Prompt (suomenkielisessä versiossa Komentokehote)
 3. Siirry hakemistoon, mihin haluat ladata Jolten, esim. `c:\users\nn`
 4. Kloonaa Jolte versionhallinnasta omalle koneelle `git clone https://github.com/perttitaneli/jolte.git`
 5. Aseta Git tunnukset ympäristömuuttujiin %JOLTE_USERNAME% ja %JOLTE_PASSWORD%
