@@ -25,18 +25,19 @@
         </div>
 
         <div class="well">
-
-          <div class="col-lg-12">
-            <% puoliso = current_page.data.try(:puoliso) %>
-            <% if puoliso.present? %>
-                <h4>Puoliso</h4>
-                <ul>
-                  <li>
-                    <%= taululinkki puoliso %>
-                  </li>
-                </ul>
-            <% end %>
-            <%= partial 'layouts/partials/lapset' %>
+          <div class="row">
+            <div class="col-lg-12">
+              <% puoliso = current_page.data.try(:puoliso) %>
+              <% if puoliso.present? %>
+                  <h4>Puoliso</h4>
+                  <ul>
+                    <li>
+                      <%= taululinkki puoliso %>
+                    </li>
+                  </ul>
+              <% end %>
+              <%= partial 'layouts/partials/lapset' %>
+            </div>
           </div>
         </div>
 
