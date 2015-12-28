@@ -11,7 +11,7 @@
 
 # Ignore the build directory
 /bin
-/source/.~lock.
+source/.~lock.sukutaulukko.ods#
 
 # Ignore cache
 /.sass-cache
