@@ -3,23 +3,33 @@ module CustomHelpers
   def taulukoodit
     koodit = []
     sitemap.resources.each do |article|
-      if article.path.include?('suku/') && article.data.taulu
-        koodit << article.data.taulu
+      if article.path.include?('suku/') && get_id(article)
+        koodit << get_id(article)
       end
     end
     koodit.sort
   end
 
+  def people_articles
+    articles = []
+    sitemap.resources.each do |article|
+      if article.path.include?('suku/')
+        articles << article
+      end
+    end
+    articles
+  end
+
   def git_link(article)
-    taulu = article.data.taulu
-    etunimet = normalize_name(article.data.etunimet)
+    taulu = get_id(article)
+    etunimi = normalize_name(article.data.etunimi)
     sukunimi = normalize_name(article.data.sukunimi)
     repo = 'http://github.com/perttitaneli/jolte/blob/master/source/suku/'
     appendix = '.html.markdown.erb'
     if sukunimi
-      key = sprintf "%s%s-%s-%s%s", repo, taulu, sukunimi, etunimet, appendix
+      key = sprintf "%s%s-%s-%s%s", repo, taulu, sukunimi, etunimi, appendix
     else
-      key = sprintf "%s%s-%s%s", repo, taulu, sukunimi, etunimet, appendix
+      key = sprintf "%s%s-%s%s", repo, taulu, sukunimi, etunimi, appendix
     end
 
     key
@@ -38,10 +48,37 @@ module CustomHelpers
   end
 
   def sukutaulu?(article)
-    article.path.include?('suku/')
+    article.path.include?('sukupuut/')
   end
 
-  def esivanhemmat(taulu)
+  def esivanhemmat(koodi)
+    result = nil
+    if koodi
+      art = article_by_id koodi
+      if art
+        father_code = father_id art
+        mother_code = mom_id art
+
+        father_data = esivanhemmat father_code
+        mother_data = esivanhemmat mother_code
+
+        data = ['<table><tr>']
+        owner = tree_link_from_article(art)
+        if false
+          data << sprintf("<td rowspan='2' id='mom'>%s</td>", owner)
+        else
+          data << sprintf("<td rowspan='2'>%s</td>", owner)
+        end
+        data << sprintf("<td>%s</td></tr><tr><td id='mom'>%s</td>",
+                        father_data, mother_data)
+        data << '</tr></table>'
+        result = data.join('')
+      end
+    end
+    result
+  end
+
+  def esivanhemmat_old(taulu)
     result = nil
     if taulu
       article = find_person_by_id taulu
@@ -108,7 +145,7 @@ module CustomHelpers
       if name_without_id.length == 0
 
         sitemap.resources.each do |article|
-          if article.data.taulu == table_id
+          if get_id(article) == table_id
             result = search_name article
             break
           end
@@ -119,12 +156,20 @@ module CustomHelpers
   end
 
   def search_name(article)
-    sprintf "%s %s %s", article.data.etunimet, article.data.sukunimi, article.data.taulu
+    sprintf "%s %s %s", article.data.etunimi, article.data.sukunimi, get_id(article)
   end
 
   def vanhemmat(current_page)
     name = search_name current_page
     parents(name)
+  end
+
+  def father_id(article)
+    article.data.try("isän koodi")
+  end
+
+  def mom_id(article)
+    article.data.try("Äidin koodi")
   end
 
   def father(search_name)
@@ -223,18 +268,18 @@ module CustomHelpers
   def tarinat(current_page)
     result = []
 
-    sitemap.resources.each do |article|
-
-      persons = article.data.henkilöt
-      if persons
-        list = persons.split(',')
-        list.each do |person|
-          if is_same_person(person, current_page)
-            result << article
-          end
-        end
-      end
-    end
+    # sitemap.resources.each do |article|
+    #
+    #   persons = article.data.henkilöt
+    #   if persons
+    #     list = persons.split(',')
+    #     list.each do |person|
+    #       if is_same_person(person, current_page)
+    #         result << article
+    #       end
+    #     end
+    #   end
+    # end
 
     result
   end
@@ -265,10 +310,10 @@ module CustomHelpers
   end
 
   def person_link(article)
-    official_name = sprintf "%s %s", article.data.etunimet, article.data.sukunimi
+    official_name = sprintf "%s %s", article.data.etunimi, article.data.sukunimi
     link = link_to official_name, article
-    if article.data.syntyi
-      text = sprintf "%s s. %s", link, article.data.syntyi
+    if article.data.syntymäpaikka
+      text = sprintf "%s s. %s", link, article.data.syntymäpaikka
     else
       text = link
     end
@@ -280,9 +325,9 @@ module CustomHelpers
     article = article_by_name_or_id(name_or_id)
 
     if article
-      text = "#{article.data.etunimet} #{article.data.sukunimi}"
+      text = "#{article.data.etunimi} #{article.data.sukunimi}"
       link = link_to text, article
-      result = sprintf("%s %s %s", article.data.taulu, link, article.data.syntyi)
+      result = sprintf("%s %s s. %s", get_id(article), link, article.data.syntymäaika)
     end
 
     result
@@ -300,9 +345,13 @@ module CustomHelpers
   end
 
   def tree_link_from_article(article)
-    text = "#{article.data.etunimet} #{article.data.sukunimi}"
-    link = link_to text, article
-    result = sprintf("%s<br>%s<br>%s", article.data.taulu, link, article.data.syntyi)
+    link = link_to get_id(article), article
+    sprintf("<span class='bold'>%s</span> %s <br>s.%s %s<br>%s",
+            article.data.etunimi,
+            article.data.sukunimi,
+            article.data.syntymäaika,
+            article.data.paikka,
+            link)
   end
 
   def taululinkki(name_or_id, text=nil)
@@ -312,10 +361,10 @@ module CustomHelpers
 
     if article
       if text.nil?
-        text = sprintf("%s %s", article.data.etunimet, article.data.sukunimi)
+        text = sprintf("%s %s", article.data.etunimi, article.data.sukunimi)
       end
 
-      result = sprintf "%s %s", link_to(text, article), article.data.syntyi
+      result = sprintf "%s %s", link_to(text, article), article.data.syntymäpaikka
     end
 
     result
@@ -328,7 +377,7 @@ module CustomHelpers
 
     if article
       if text.nil?
-        text = "#{article.data.etunimet} #{article.data.sukunimi}"
+        text = "#{article.data.etunimi} #{article.data.sukunimi}"
       end
 
       result = link_to text, article
@@ -337,14 +386,72 @@ module CustomHelpers
     result
   end
 
+  def kids(father_art, mom_art)
+    kids = []
+    father_code = get_id father_art
+    mom_code = get_id mom_art
+    people_articles.each do |article|
+      if father_code.present? &&
+          (father_code.eql? father_id(article)) &&
+          mom_code.present? && (mom_code.eql? mom_id(article))
+        kids << article
+      end
+    end
+
+    kids
+  end
+
+  def puolisot(article)
+    moms = []
+
+    koodi = get_id(article)
+    people_articles.each do |article|
+      if koodi.eql? article.data.try('isän koodi')
+        mom = article.data.try('Äidin koodi')
+        if mom.present?
+          art = article_by_id mom
+          moms << (art || mom)
+        end
+      end
+    end
+
+    moms
+  end
+
+  def get_id(article)
+    article.data.koodi
+  end
+
+  def person_info(article)
+    sprintf "%s %s %s s.%s %s",
+            get_id(article),
+            article.data.etunimi,
+            article.data.sukunimi,
+            article.data.syntymäaika,
+            article.data.paikka
+  end
+
+  def linkki(article)
+    sprintf "%s %s %s s.%s %s",
+            (link_to get_id(article), article),
+            article.data.etunimi,
+            article.data.sukunimi,
+            article.data.syntymäaika,
+            article.data.paikka
+  end
+
   def article_by_name_or_id(name_or_id)
     if name_has_numbers?(name_or_id)
-      id = find_table(name_or_id)
-      article = find_person_by_id id
+      article = article_by_id(name_or_id)
     else
       article = find_person_by_name name_or_id
     end
     article
+  end
+
+  def article_by_id(koodi)
+    id = find_table(koodi)
+    find_person_by_id id
   end
 
   def find_table(name_string)
@@ -415,10 +522,10 @@ module CustomHelpers
     last_name = article.data.sukunimi
 
     if last_name.present? && surname.eql?(last_name)
-      etunimet = article.data.etunimet
+      etunimi = article.data.etunimi
       all_found = true
       first_names.each do |etunimi|
-        unless etunimet.include?(etunimi)
+        unless etunimi.include?(etunimi)
           all_found = false
           break
         end
@@ -452,7 +559,7 @@ module CustomHelpers
     result = nil
     sitemap.resources.each do |article|
 
-      art_id = article.data.taulu
+      art_id = get_id(article)
       if art_id == id
         result = article
         break

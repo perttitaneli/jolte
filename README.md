@@ -78,7 +78,7 @@ Taulu-tyyppisen tiedoston esimerkkirakenne
 taulu: A304
 etunimet: Johan
 sukunimi: Viljakkala
-syntyi: 1.1.1801
+syntymäpaikka: 1.1.1801
 puoliso: Anna Matsdotr
 lapset: Johanna Kulmala A399, Viljami Kulmala
 ---
