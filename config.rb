@@ -41,7 +41,7 @@ helpers CustomHelpers
 # end
 
 configure :production do
-  set :http_prefix, '/jolte'
+  # set :http_prefix, '/jolte'
 end
 
 
