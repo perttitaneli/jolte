@@ -41,14 +41,14 @@ helpers CustomHelpers
 # end
 
 configure :production do
-  set :http_prefix, '/jolte'
+  # set :http_prefix, '/jolte'
 end
 
 
 # Build-specific configuration
 configure :build do
 
-  set :http_prefix, '/jolte'
+  # set :http_prefix, '/jolte'
   # Minify CSS on build
   # activate :minify_css
 

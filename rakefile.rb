@@ -11,7 +11,7 @@ task :add_sukutaulut do
 
   sheet.each_with_index { |row, i|
     unless i == 0
-      table = row[headers['Taulu']]
+      table = row[headers['Koodi']]
       add_table_if_needed(table, row, headers)
     end
   }
@@ -124,8 +124,8 @@ def add_table_if_needed(table, row, headers)
 end
 
 def get_file_key(row, headers)
-  taulu = row[headers['Taulu']]
-  raw_etunimet = row[headers['Etunimet']]
+  taulu = row[headers['Koodi']]
+  raw_etunimet = row[headers['Etunimi']]
   raw_sukunimi = row[headers['Sukunimi']]
 
   etunimet = normalize_name raw_etunimet
