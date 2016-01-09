@@ -43,7 +43,7 @@ td {
   border-collapse: collapse;
   padding: 10px;
   td {
-    border: none;
+    //border: none;
   }
 }
 
@@ -54,6 +54,10 @@ ul {
 .fa-portrait {
   font: normal normal normal 100px FontAwesome;
   color: #7f8177;
+}
+
+.td-align-top {
+  vertical-align: top;
 }
 
 .index .frontpage {

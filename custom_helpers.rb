@@ -51,64 +51,121 @@ module CustomHelpers
     article.path.include?('sukupuut/')
   end
 
-  def esivanhemmat(koodi)
+  def sukupuu_esivanhemmat(koodi)
     result = nil
     if koodi
       art = article_by_id koodi
-      if art
-        father_code = father_id art
-        mother_code = mom_id art
+      depth = tree_depth 0, art
 
-        father_data = esivanhemmat father_code
-        mother_data = esivanhemmat mother_code
+      row = 0
+      column = 0
+      data_hash = {}
 
-        data = ['<table><tr>']
-        owner = tree_link_from_article(art)
-        if false
-          data << sprintf("<td rowspan='2' id='mom'>%s</td>", owner)
-        else
-          data << sprintf("<td rowspan='2'>%s</td>", owner)
-        end
-        data << sprintf("<td>%s</td></tr><tr><td id='mom'>%s</td>",
-                        father_data, mother_data)
-        data << '</tr></table>'
-        result = data.join('')
-      end
+      row_data = get_row_data(data_hash, row)
+      row_data[column] = [tree_link_from_article(art), depth*2]
+
+      find_parent_table_locations(data_hash, art, depth, row, column)
+
+      result = table_from_hash data_hash, depth
     end
     result
   end
 
-  def esivanhemmat_old(taulu)
-    result = nil
-    if taulu
-      article = find_person_by_id taulu
-      unless article
-        article = find_person_by_name taulu
-      end
+  def get_row_data(data_hash, row)
+    row_data = data_hash[row]
+    unless row_data
+      data_hash[row] = {}
+      row_data = data_hash[row]
+    end
+    row_data
+  end
 
-      if article
-        name = search_name article
+  def table_from_hash(data_hash, column_count)
+    # return data_hash
+    data = ['<table>']
+    for row in 0..(column_count*2)
+      row_data = data_hash[row]
+      if row_data
+        data << '<tr>'
+        for column in 0..column_count
+          person, rowspan = row_data[column]
+          if person
+            if rowspan != 0
+              if row == 0 && column == 0
+                data << sprintf("<td rowspan='%s' class='td-align-top bold'>%s</td>", rowspan, person)
+              else
+                data << sprintf("<td rowspan='%s' class='td-align-top'>%s</td>", rowspan, person)
+              end
+            else
+              data << sprintf("<td class='td-align-top'>%s</td>", person)
+            end
 
-        pa = father name
-        ma = mother name
-
-        mother_data = esivanhemmat(ma)
-        father_data = esivanhemmat(pa)
-
-        data = ['<table><tr>']
-        owner = tree_link_from_article(article)
-        if is_a_woman? article
-          data << sprintf("<td rowspan='2' id='mom'>%s</td>", owner)
-        else
-          data << sprintf("<td rowspan='2'>%s</td>", owner)
+          end
         end
-        data << sprintf("<td>%s</td></tr><tr><td id='mom'>%s</td>",
-                        father_data, mother_data)
-        data << '</tr></table>'
-        result = data.join('')
+        data << '</tr>'
       end
     end
-    result
+    data << '</table>'
+
+    data.join('')
+  end
+
+  def find_parent_table_locations(data_hash, art, depth, row, column)
+    current_depth = depth-1
+    current_column = column+1
+
+    father_code = father_id art
+    dad_art = article_by_id father_code
+    if dad_art
+      row_data = get_row_data(data_hash, row)
+      row_data[current_column] = [tree_link_from_article(dad_art), current_depth*2]
+      find_parent_table_locations data_hash, dad_art, current_depth,
+                                  row, current_column
+    end
+
+    mother_code = mom_id art
+
+    mom_art = article_by_id mother_code
+    if mom_art
+      if current_depth == 0
+        mom_depth = 1
+      else
+        mom_depth = current_depth*2
+      end
+      mom_row = row + mom_depth
+      mom_row_data = get_row_data(data_hash, mom_row)
+      person = tree_link_from_article(mom_art)
+      mom_row_data[current_column] = [person, current_depth*2]
+      find_parent_table_locations data_hash, mom_art, current_depth,
+                                  mom_row, current_column
+    end
+
+  end
+
+  def tree_depth(current_depth, art)
+    father_code = father_id art
+    mother_code = mom_id art
+
+    depth = current_depth+1
+
+    mom_art = article_by_id mother_code
+    mother_depth = current_depth
+    if mom_art
+      mother_depth = tree_depth(depth, mom_art)
+    end
+
+    dad_art = article_by_id father_code
+    dad_depth = current_depth
+    if mom_art
+      dad_depth = tree_depth(depth, dad_art)
+    end
+
+    if mother_depth > dad_depth
+      depth = mother_depth
+    else
+      depth = dad_depth
+    end
+    depth
   end
 
   def jalkelaiset(taulu)
@@ -345,13 +402,18 @@ module CustomHelpers
   end
 
   def tree_link_from_article(article)
+    # return article.data.etunimi
     link = link_to get_id(article), article
-    sprintf("<span class='bold'>%s</span> %s <br>s.%s %s<br>%s",
-            article.data.etunimi,
+
+    start ="<div class='td-align-top'>"
+    end_s = "</div>"
+    sprintf("%s<span class='bold'>%s</span> %s <br>s.%s %s<br><div class='pull-right'>%s</div>%s",
+            start, article.data.etunimi,
             article.data.sukunimi,
             article.data.syntymäaika,
             article.data.paikka,
-            link)
+            link,
+            end_s)
   end
 
   def taululinkki(name_or_id, text=nil)
