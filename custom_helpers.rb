@@ -65,8 +65,9 @@ module CustomHelpers
       row_data[column] = [tree_link_from_article(art), depth*2]
 
       find_parent_table_locations(data_hash, art, depth, row, column)
-
       result = table_from_hash data_hash, depth
+      # test this by enabling this
+      # return data_hash
     end
     result
   end
@@ -222,11 +223,19 @@ module CustomHelpers
   end
 
   def father_id(article)
-    article.data.try("isän koodi")
+    result=nil
+    if article.present?
+      result=article.data.try("isän koodi")
+    end
+    result
   end
 
   def mom_id(article)
-    article.data.try("Äidin koodi")
+    result = nil
+    if article.present?
+      result= article.data.try("Äidin koodi")
+    end
+    result
   end
 
   def father(search_name)
@@ -512,17 +521,23 @@ module CustomHelpers
   end
 
   def article_by_id(koodi)
-    id = find_table(koodi)
-    find_person_by_id id
+    result = nil
+    if koodi.present?
+      id = find_table(koodi)
+      result = find_person_by_id id
+    end
+    result
   end
 
   def find_table(name_string)
     result = nil
-    parts = name_string.split(' ')
-    parts.each do |name_or_id|
-      if name_has_numbers?(name_or_id)
-        result = name_or_id
-        break
+    if name_string.present?
+      parts = name_string.split(' ')
+      parts.each do |name_or_id|
+        if name_has_numbers?(name_or_id)
+          result = name_or_id
+          break
+        end
       end
     end
     result
