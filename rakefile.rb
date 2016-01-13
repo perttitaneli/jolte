@@ -80,7 +80,6 @@ def update_frontmatter(row, frontmatter_data, headers)
     front_array = frontmatter_data[0].split(/\n/)
     matter_keys = hash_keys_by_value headers
     matter_keys.each do |matter_key|
-
       value = row[headers[matter_key]]
 
       if value.class == Date
