@@ -411,18 +411,20 @@ module CustomHelpers
   end
 
   def tree_link_from_article(article)
-    # return article.data.etunimi
-    link = link_to get_id(article), article
+    if article
+      # return article.data.etunimi
+      link = link_to get_id(article), article
 
-    start ="<div class='td-align-top'>"
-    end_s = "</div>"
-    sprintf("%s<span class='bold'>%s</span> %s <br>s.%s %s<br><div class='pull-right'>%s</div>%s",
-            start, article.data.etunimi,
-            article.data.sukunimi,
-            article.data.syntymäaika,
-            article.data.paikka,
-            link,
-            end_s)
+      start ="<div class='td-align-top'>"
+      end_s = "</div>"
+      sprintf("%s<span class='bold'>%s</span> %s <br>s.%s %s<br><div class='pull-right'>%s</div>%s",
+              start, article.data.etunimi,
+              article.data.sukunimi,
+              article.data.syntymäaika,
+              article.data.paikka,
+              link,
+              end_s)
+    end
   end
 
   def taululinkki(name_or_id, text=nil)
@@ -490,7 +492,9 @@ module CustomHelpers
   end
 
   def get_id(article)
-    article.data.koodi
+    if article
+      article.data.koodi
+    end
   end
 
   def person_info(article)
