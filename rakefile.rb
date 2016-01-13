@@ -58,7 +58,7 @@ def make_sure_table_exists(table, filename)
 end
 
 def current_frontmatter_value_for(matter_key, front_array)
-  value = front_array.find { |e| /#{matter_key.downcase}/ =~ e }
+  value = front_array.find { |e| /"#{matter_key.downcase}/ =~ e }
 end
 
 def add_to_frontmatter(front_array, matter_row)
@@ -87,6 +87,7 @@ def update_frontmatter(row, frontmatter_data, headers)
       end
 
       matter_row = sprintf "%s: %s", matter_key.downcase, value
+
       unless front_array.include?(matter_row)
         value = current_frontmatter_value_for(matter_key, front_array)
         if value.nil?
@@ -96,6 +97,7 @@ def update_frontmatter(row, frontmatter_data, headers)
         end
         changes = true
       end
+
     end
     frontmatter = front_array.join("\n")
   end
@@ -132,9 +134,9 @@ def get_file_key(row, headers)
   sukunimi = normalize_name raw_sukunimi
 
   if sukunimi
-    key = sprintf "%s-%s-%s", taulu, sukunimi, etunimet
+    key = sprintf "%s-%s-%s", taulu, etunimet, sukunimi
   else
-    key = sprintf "%s-%s", taulu, sukunimi, etunimet
+    key = sprintf "%s-%s", taulu, etunimet, sukunimi
   end
   key
 end
@@ -145,7 +147,7 @@ def normalize_name(name)
     # The monster line below removes any characters that cant be shown
     # and normalizes scandinavian chars
     result = name.gsub(/ä/, 'a').
-        gsub(/å/, 'a').gsub(/ö/,'o').gsub(/Å/,'A').gsub(/Ä/,'A').gsub(/Ö/,'O').
+        gsub(/å/, 'a').gsub(/ö/, 'o').gsub(/Å/, 'A').gsub(/Ä/, 'A').gsub(/Ö/, 'O').
         gsub(/\W\-/, "").downcase.tr(" ", "-")
   end
   result
