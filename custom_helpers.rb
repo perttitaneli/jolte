@@ -53,6 +53,7 @@ module CustomHelpers
 
   def sukupuu_esivanhemmat(koodi)
     return ''
+    
     result = nil
     if koodi
       art = article_by_id koodi
