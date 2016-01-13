@@ -52,6 +52,7 @@ module CustomHelpers
   end
 
   def sukupuu_esivanhemmat(koodi)
+    return ''
     result = nil
     if koodi
       art = article_by_id koodi
@@ -115,32 +116,39 @@ module CustomHelpers
     current_depth = depth-1
     current_column = column+1
 
-    father_code = father_id art
-    dad_art = article_by_id father_code
-    if dad_art
-      row_data = get_row_data(data_hash, row)
-      row_data[current_column] = [tree_link_from_article(dad_art), current_depth*2]
-      find_parent_table_locations data_hash, dad_art, current_depth,
-                                  row, current_column
-    end
-
-    mother_code = mom_id art
-
-    mom_art = article_by_id mother_code
-    if mom_art
-      if current_depth == 0
-        mom_depth = 1
-      else
-        mom_depth = current_depth*2
+    if depth >= 0
+      # p "current depth #{current_depth}"
+      # p "current column #{current_column}"
+      father_code = father_id art
+      dad_art = article_by_id father_code
+      if dad_art
+        p "locating #{dad_art.data.etunimi}"
+        row_data = get_row_data(data_hash, row)
+        row_data[current_column] = [tree_link_from_article(dad_art), current_depth*2]
+        p "Placing at #{row},#{current_column}, spanning #{current_depth*2} rows"
+        find_parent_table_locations data_hash, dad_art, current_depth,
+                                    row, current_column
       end
-      mom_row = row + mom_depth
-      mom_row_data = get_row_data(data_hash, mom_row)
-      person = tree_link_from_article(mom_art)
-      mom_row_data[current_column] = [person, current_depth*2]
-      find_parent_table_locations data_hash, mom_art, current_depth,
-                                  mom_row, current_column
-    end
 
+      mother_code = mom_id art
+
+      mom_art = article_by_id mother_code
+      if mom_art
+        if current_depth == 0
+          mom_depth = 1
+        else
+          mom_depth = current_depth*2
+        end
+        p "locating #{mom_art.data.etunimi}"
+        mom_row = row + mom_depth
+        mom_row_data = get_row_data(data_hash, mom_row)
+        person = tree_link_from_article(mom_art)
+        mom_row_data[current_column] = [person, current_depth*2]
+        p "Placing at #{mom_row},#{current_column}, spanning #{current_depth*2} rows"
+        find_parent_table_locations data_hash, mom_art, current_depth,
+                                    mom_row, current_column
+      end
+    end
   end
 
   def tree_depth(current_depth, art)
@@ -412,7 +420,7 @@ module CustomHelpers
 
   def tree_link_from_article(article)
     if article
-      # return article.data.etunimi
+      return article.data.etunimi
       link = link_to get_id(article), article
 
       start ="<div class='td-align-top'>"
