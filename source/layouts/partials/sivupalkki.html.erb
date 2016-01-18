@@ -1,0 +1,36 @@
+<aside>
+  <h4>
+    <%= link_to 'Etusivu', '/' %>
+  </h4>
+  <% if tarinan_henkilöt(tämä_artikkeli).any? %>
+      <h4>Tarinassa esiintyvät</h4>
+      <ul>
+        <% tarinan_henkilöt(tämä_artikkeli).each do |henkilö| %>
+            <li>
+              <%= nimilinkki henkilö %>
+            </li>
+        <% end %>
+      </ul>
+  <% end %>
+
+  <h4><%= link_to 'Henkilöt', '/henkilot' %></h4>
+
+  <h4>Sukupuut</h4>
+  <ul>
+    <% sukutaulut.each do |artikkeli| %>
+        <li>
+          <%= luo_linkki artikkeli.data.linkki, artikkeli %>
+        </li>
+    <% end %>
+  </ul>
+
+
+  <h4>Tarinat</h4>
+  <ul>
+    <% tarinat.each do |artikkeli| %>
+        <li>
+          <%= luo_linkki artikkeli.data.linkki, artikkeli %>
+        </li>
+    <% end %>
+  </ul>
+</aside>

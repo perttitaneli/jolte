@@ -8,8 +8,8 @@
 page '/*.xml', layout: false
 page '/*.json', layout: false
 page '/*.txt', layout: false
-page "/suku/*", :layout => "person"
-page "/index.html", :layout => "frontpage"
+page "/suku/*", :layout => "sukukortti"
+page "/index.html", :layout => "etusivu"
 
 # With alternative layout
 # page "/path/to/file.html", layout: :otherlayout
@@ -30,8 +30,8 @@ end
 # Helpers
 ###
 
-require "custom_helpers"
-helpers CustomHelpers
+require 'koodi/temput'
+helpers Temput
 
 # Methods defined in the helpers block are available in templates
 # helpers do

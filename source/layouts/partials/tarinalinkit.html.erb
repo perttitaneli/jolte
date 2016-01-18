@@ -1,0 +1,11 @@
+<% jutut = tarinat_henkilölle(tämä_artikkeli) %>
+<% if jutut.count > 0 %>
+    <h3>Esiintyy tarinoissa</h3>
+    <ul>
+      <% jutut.each do |article| %>
+          <li>
+            <%= artikkelilinkki article %>
+          </li>
+      <% end %>
+    </ul>
+<% end %>
