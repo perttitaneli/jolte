@@ -1,4 +1,5 @@
 require 'roo'
+require_relative 'etsi'
 
 class SukukortitTaulukosta
   TAULUKON_TIEDOSTONIMI = './source/sukutaulukko.ods'
@@ -87,13 +88,13 @@ class SukukortitTaulukosta
 
   def tiedosto_henkilölle(henkilö)
     taulu = henkilö['Koodi']
-    etunimet = poista_erikoismerkit henkilö['Etunimi']
-    sukunimi = poista_erikoismerkit henkilö['Sukunimi']
+    etunimet = Etsi.poista_erikoismerkit henkilö['Etunimi']
+    sukunimi = Etsi.poista_erikoismerkit henkilö['Sukunimi']
 
     if sukunimi
       tiedostonimi = sprintf "%s-%s-%s", taulu, etunimet, sukunimi
     else
-      tiedostonimi = sprintf "%s-%s", taulu, etunimet, sukunimi
+      tiedostonimi = sprintf "%s-%s", taulu, etunimet
     end
     tiedostonimi
   end
@@ -180,17 +181,6 @@ class SukukortitTaulukosta
 
   def yhdista_rivinvaihdoilla(perustietolista)
     perustietolista.join("\n")
-  end
-
-  def poista_erikoismerkit(nimi)
-    vastaus = nil
-    if nimi
-      # Poistaa skandit ja merkit joita ei voida näyttää
-      vastaus = nimi.gsub(/ä/, 'a').
-          gsub(/å/, 'a').gsub(/ö/, 'o').gsub(/Å/, 'A').gsub(/Ä/, 'A').gsub(/Ö/, 'O').
-          gsub(/\W\-/, "").downcase.tr(" ", "-")
-    end
-    vastaus
   end
 
 end

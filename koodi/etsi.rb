@@ -220,4 +220,15 @@ class Etsi
 
   alias_method :hae_koodi, :koodi
 
+  def self.poista_erikoismerkit(nimi)
+    vastaus = nil
+    if nimi
+      # Poistaa skandit ja merkit joita ei voida näyttää, muuttaa välilyönnit viivoiksi
+      vastaus = nimi.strip.gsub(/ä/, 'a').
+          gsub(/å/, 'a').gsub(/ö/, 'o').gsub(/Å/, 'A').gsub(/Ä/, 'A').gsub(/Ö/, 'O').
+          gsub(/\W\-/, "").downcase.tr(" ", "-")
+    end
+    vastaus
+  end
+
 end
