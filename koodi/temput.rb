@@ -134,8 +134,8 @@ module Temput
 
   def git_linkki(artikkeli)
     koodi = artikkeli.data.koodi
-    etunimi = poista_erikoismerkit(artikkeli.data.etunimi)
-    sukunimi = poista_erikoismerkit(artikkeli.data.sukunimi)
+    etunimi = Etsi.poista_erikoismerkit(artikkeli.data.etunimi)
+    sukunimi = Etsi.poista_erikoismerkit(artikkeli.data.sukunimi)
     repo = 'http://github.com/perttitaneli/jolte/blob/master/source/suku/'
     tiedostopaate = '.html.markdown.erb'
     if sukunimi
@@ -144,17 +144,6 @@ module Temput
       vastaus = sprintf "%s%s-%s%s", repo, koodi, sukunimi, etunimi, tiedostopaate
     end
 
-    vastaus
-  end
-
-  def poista_erikoismerkit(teksti)
-    vastaus = nil
-    if teksti
-      # Poistaa skandit ja muut erikoismerkit
-      vastaus = teksti.gsub(/ä/, 'a').
-          gsub(/å/, 'a').gsub(/ö/, 'o').gsub(/Å/, 'A').gsub(/Ä/, 'A').gsub(/Ö/, 'O').
-          gsub(/\W\-/, "").downcase.tr(" ", "-")
-    end
     vastaus
   end
 
