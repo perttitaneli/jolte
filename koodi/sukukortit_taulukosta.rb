@@ -153,6 +153,8 @@ class SukukortitTaulukosta
 
         if uusi_arvo.class == Date
           uusi_arvo = uusi_arvo.strftime("%d.%m.%Y")
+        elsif uusi_arvo.class == Float
+          uusi_arvo = uusi_arvo.to_i.round(0)
         end
 
         perustietorivi = sprintf "%s: %s", perustiedon_avain.downcase, uusi_arvo
