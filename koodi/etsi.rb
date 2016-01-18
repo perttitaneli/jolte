@@ -9,6 +9,20 @@ class Etsi
     self.artikkelit = artikkelit
   end
 
+  def artikkelit_aakkosjärjestyksessä
+    koodit = []
+    artikkelit.each do |artikkeli|
+      koodit << hae_koodi(artikkeli)
+    end
+
+    koodit.sort!
+    vastaus = []
+    koodit.each do |koodi|
+      vastaus << artikkeli_koodilla(koodi)
+    end
+    vastaus
+  end
+
   def self.aseta(sivukartta, hakutyyppi)
     case hakutyyppi
       when HENKILÖT

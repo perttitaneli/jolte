@@ -53,7 +53,7 @@ module Temput
                               artikkeli.data.etunimi,
                               artikkeli.data.sukunimi)
       linkki = luo_linkki linkin_teksti, artikkeli
-      sprintf("%s %s s. %s", artikkeli.data.koodi, linkki, artikkeli.data.syntymäaika)
+      sprintf("%s %s s.%s", artikkeli.data.koodi, linkki, artikkeli.data.syntymäaika)
     end
   end
 
@@ -99,7 +99,7 @@ module Temput
 
   def henkilöartikkelit
     etsi = Etsi.aseta sivukartta, Etsi::HENKILÖT
-    etsi.artikkelit
+    etsi.artikkelit_aakkosjärjestyksessä
   end
 
   def nimilinkki(nimi_tai_koodi, teksti=nil)
