@@ -226,7 +226,7 @@ class Etsi
       # Poistaa skandit ja merkit joita ei voida näyttää, muuttaa välilyönnit viivoiksi
       vastaus = nimi.strip.gsub(/ä/, 'a').
           gsub(/å/, 'a').gsub(/ö/, 'o').gsub(/Å/, 'A').gsub(/Ä/, 'A').gsub(/Ö/, 'O').
-          gsub(/\W\-/, "").downcase.tr(" ", "-")
+          downcase.gsub(/[^a-z ]/,'').split.join(" ").tr(" ", "-")
     end
     vastaus
   end
