@@ -12,7 +12,8 @@ class Etsi
   def artikkelit_aakkosjärjestyksessä
     koodit = []
     artikkelit.each do |artikkeli|
-      koodit << hae_koodi(artikkeli)
+      koodi = hae_koodi(artikkeli)
+      koodit << koodi if koodi.present?
     end
 
     koodit.sort!

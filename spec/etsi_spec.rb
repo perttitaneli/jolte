@@ -15,4 +15,13 @@ describe Etsi do
     end
   end
 
+  describe 'artikkelit aakkosjärjestyksessä' do
+    let!(:juuri) { Artikkeli.luo koodi: nil }
+    it 'ei kaadu vaikka artikkelin koodi puuttuisi' do
+      etsi = Etsi.new([])
+      artikkelit = etsi.artikkelit_aakkosjärjestyksessä
+      expect(artikkelit).to eq []
+    end
+  end
+
 end
